@@ -1,0 +1,8 @@
+Ewurakua Amoah
+74492028
+cohort A
+MariaDB [employeesystem]> create table department(deptNo int(10) not null, deptName varchar(30), mgrEmpNo int(10), primary key(deptNo));
+Query OK, 0 rows affected (0.119 sec)
+
+MariaDB [employeesystem]> create table employee(empNo int(10) not Null, primary key(empNo), fName varchar(30), lName varchar(30), DOB date, sex varchar(2), position varchar(40), deptNo int(10), foreign key (deptNo) references department(deptNo));
+Query OK, 0 rows affected (0.117 sec)
