@@ -16,3 +16,20 @@ Query OK, 0 rows affected (0.118 sec)
 
 MariaDB [employeesystem]> create table workson(empNo int(10) not null, projNo int(10) not null, dateWorked date not null, hoursWorked decimal(10,2), primary key(empNo, projNo, dateWorked), foreign key (empNo) references employee (empNo), foreign key (projNo) references project(projNo));
 Query OK, 0 rows affected (0.118 sec)
+
+MariaDB [employeesystem]> alter table employee add constraint sex_check check(sex in('M','F'));
+Query OK, 0 rows affected (0.248 sec)              
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [employeesystem]> alter table employee add constraint position_check check(position in('Manager','Team leader','Analyst', 'Software Developer'));
+Query OK, 0 rows affected (0.236 sec)              
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [employeesystem]> alter table workson add constraint hours_check check(hoursWorked>=0 and hoursWorked<=40);
+Query OK, 0 rows affected (0.240 sec)              
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [employeesystem]> alter table workson modify column hoursWorked int(3);
+Query OK, 0 rows affected (0.232 sec)              
+Records: 0  Duplicates: 0  Warnings: 0
+
