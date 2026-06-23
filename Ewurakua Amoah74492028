@@ -13,3 +13,6 @@ Records: 0  Duplicates: 0  Warnings: 0
 
 MariaDB [employeesystem]> create table project(projNo int(10) not null, primary key (projNo), projName varchar(40), deptNo int(10), foreign key (deptNo) references department(deptNo));
 Query OK, 0 rows affected (0.118 sec)
+
+MariaDB [employeesystem]> create table workson(empNo int(10) not null, projNo int(10) not null, dateWorked date not null, hoursWorked decimal(10,2), primary key(empNo, projNo, dateWorked), foreign key (empNo) references employee (empNo), foreign key (projNo) references project(projNo));
+Query OK, 0 rows affected (0.118 sec)
