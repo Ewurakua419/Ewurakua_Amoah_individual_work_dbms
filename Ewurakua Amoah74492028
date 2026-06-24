@@ -42,8 +42,160 @@ Query OK, 0 rows affected (0.090 sec)
 MariaDB [employeesystem]> create view EmpProject(empNo, projNo, totalHours) AS select w.empNo, w.projNo, SUM(hoursWorked) FROM Employee e, Project p, WorksOn w where e.empNo = w.empNo and p.projNo = w.projNo GROUP BY w.empNo, w.projNo;
 Query OK, 0 rows affected (0.100 sec)
 
+MariaDB [employeesystem]> INSERT INTO department (deptNo, deptName, mgrEmpNo) VALUES
+    -> (4,'Human Resources',NULL),
+    -> (17,'Finance',NULL),
+    -> (205,'Information Technology',NULL),
+    -> (412,'Marketing',NULL),
+    -> (999,'Sales',NULL),
+    -> (1200,'Research',NULL),
+    -> (2006,'Customer Support',NULL),
+    -> (3008,'Operations',NULL),
+    -> (4010,'Procurement',NULL),
+    -> (5055,'Legal',NULL),
+    -> (6100,'Training',NULL),
+    -> (7222,'Quality Assurance',NULL),
+    -> (8450,'Security',NULL),
+    -> (9101,'Administration',NULL),
+    -> (12005,'Business Intelligence',NULL);
+Query OK, 15 rows affected (0.016 sec)
+Records: 15  Duplicates: 0  Warnings: 0
+
+MariaDB [employeesystem]> INSERT INTO employee
+    -> (empNo,fName,lName,DOB,sex,position,deptNo)
+    -> VALUES
+    -> (101,'John','Mensah','1980-04-12','M','Manager',4),
+    -> (207,'Mary','Asante','1985-08-22','F','Manager',17),
+    -> (450,'Daniel','Owusu','1982-02-18','M','Manager',205),
+    -> (782,'Linda','Boateng','1988-09-10','F','Manager',412),
+    -> (1005,'Michael','Agyeman','1983-11-05','M','Manager',999),
+    -> (1500,'Grace','Nyarko','1990-03-15','F','Team leader',1200),
+    -> (2022,'Samuel','Darko','1989-12-01','M','Team leader',2006),
+    -> (3098,'Patricia','Addo','1991-07-20','F','Team leader',3008),
+    -> (4011,'Joseph','Ofori','1987-05-08','M','Team leader',4010),
+    -> (5100,'Evelyn','Boadu','1992-01-25','F','Team leader',5055),
+    -> (6123,'Richard','Kusi','1994-06-30','M','Analyst',6100),
+    -> (7555,'Angela','Tetteh','1993-10-14','F','Analyst',7222),
+    -> (8800,'Peter','Amankwah','1995-02-28','M','Software Developer',8450),
+    -> (9301,'Sandra','Frimpong','1996-04-18','F','Software Developer',9101),
+    -> (15001,'David','Acheampong','1997-08-09','M','Software Developer',12005);
+Query OK, 15 rows affected (0.004 sec)
+Records: 15  Duplicates: 0  Warnings: 0
+
+MariaDB [employeesystem]> INSERT INTO project (projNo, projName, deptNo) VALUES
+    -> (11,'Employee Portal Upgrade',4),
+    -> (145,'Payroll Automation',17),
+    -> (2088,'Cloud Migration',205),
+    -> (3001,'Digital Marketing Campaign',412),
+    -> (4500,'Sales Analytics Platform',999),
+    -> (5012,'AI Research Initiative',1200),
+    -> (6200,'Customer Ticket System',2006),
+    -> (7777,'Operations Optimization',3008),
+    -> (8900,'Supplier Management System',4010),
+    -> (9999,'Contract Management Tool',5055),
+    -> (12010,'E-Learning Platform',6100),
+    -> (14550,'Product Quality Dashboard',7222),
+    -> (18000,'Security Monitoring System',8450),
+    -> (20555,'Office Resource Management',9101),
+    -> (30000,'Business Intelligence Warehouse',12005);
+Query OK, 15 rows affected (0.003 sec)
+Records: 15  Duplicates: 0  Warnings: 0
+
+MariaDB [employeesystem]> UPDATE department
+    -> SET mgrEmpNo = CASE deptNo
+    ->     WHEN 4 THEN 101
+    ->     WHEN 17 THEN 207
+    ->     WHEN 205 THEN 450
+    ->     WHEN 412 THEN 782
+    ->     WHEN 999 THEN 1005
+    ->     WHEN 1200 THEN 1500
+    ->     WHEN 2006 THEN 2022
+    ->     WHEN 3008 THEN 3098
+    ->     WHEN 4010 THEN 4011
+    ->     WHEN 5055 THEN 5100
+    ->     WHEN 6100 THEN 6123
+    ->     WHEN 7222 THEN 7555
+    ->     WHEN 8450 THEN 8800
+    ->     WHEN 9101 THEN 9301
+    ->     WHEN 12005 THEN 15001
+    -> END
+    -> WHERE deptNo IN
+    -> (4,17,205,412,999,1200,2006,3008,4010,5055,6100,7222,8450,9101,12005);
+Query OK, 15 rows affected (0.015 sec)
+Rows matched: 15  Changed: 15  Warnings: 0
+
+MariaDB [employeesystem]> select * from EmpProject;
+Empty set (0.009 sec)
+
+MariaDB [employeesystem]> INSERT INTO workson
+    -> (empNo, projNo, dateWorked, hoursWorked)
+    -> VALUES
+    -> (101,11,'2025-01-05',8),
+    -> (207,145,'2025-01-06',7),
+    -> (450,2088,'2025-01-07',9),
+    -> (782,3001,'2025-01-08',6),
+    -> (1005,4500,'2025-01-09',8),
+    -> (1500,5012,'2025-01-10',10),
+    -> (2022,6200,'2025-01-11',7),
+    -> (3098,7777,'2025-01-12',8),
+    -> (4011,8900,'2025-01-13',9),
+    -> (5100,9999,'2025-01-14',5),
+    -> (6123,12010,'2025-01-15',8),
+    -> (7555,14550,'2025-01-16',7),
+    -> (8800,18000,'2025-01-17',10),
+    -> (9301,20555,'2025-01-18',6),
+    -> (15001,30000,'2025-01-19',8),
+    -> 
+    -> (450,30000,'2025-02-01',12),
+    -> (8800,2088,'2025-02-02',15),
+    -> (9301,7777,'2025-02-03',11),
+    -> (1500,14550,'2025-02-04',14),
+    -> (6123,4500,'2025-02-05',13),
+    -> (3098,20555,'2025-02-06',10),
+    -> (15001,5012,'2025-02-07',16),
+    -> (2022,18000,'2025-02-08',9),
+    -> (4011,12010,'2025-02-09',12),
+    -> (7555,3001,'2025-02-10',8),
+    -> 
+    -> (101,11,'2025-03-01',7),
+    -> (101,11,'2025-03-02',8),
+    -> (101,11,'2025-03-03',6),
+    -> (207,145,'2025-03-01',9),
+    -> (207,145,'2025-03-02',8);
+Query OK, 30 rows affected (0.003 sec)
+Records: 30  Duplicates: 0  Warnings: 0
+
 MariaDB [employeesystem]> select * from EmpProject;
 Empty set (0.016 sec)
++-------+--------+------------+
+| empNo | projNo | totalHours |
++-------+--------+------------+
+|   101 |     11 |         29 |
+|   207 |    145 |         24 |
+|   450 |   2088 |          9 |
+|   450 |  30000 |         12 |
+|   782 |   3001 |          6 |
+|  1005 |   4500 |          8 |
+|  1500 |   5012 |         10 |
+|  1500 |  14550 |         14 |
+|  2022 |   6200 |          7 |
+|  2022 |  18000 |          9 |
+|  3098 |   7777 |          8 |
+|  3098 |  20555 |         10 |
+|  4011 |   8900 |          9 |
+|  4011 |  12010 |         12 |
+|  5100 |   9999 |          5 |
+|  6123 |   4500 |         13 |
+|  6123 |  12010 |          8 |
+|  7555 |   3001 |          8 |
+|  7555 |  14550 |          7 |
+|  8800 |   2088 |         15 |
+|  8800 |  18000 |         10 |
+|  9301 |   7777 |         11 |
+|  9301 |  20555 |          6 |
+| 15001 |   5012 |         16 |
+| 15001 |  30000 |          8 |
++-------+--------+------------+
 
 MariaDB [employeesystem]> select projNo from EmpProject where projNo='SCCS';
 Empty set (0.006 sec)
@@ -57,4 +209,23 @@ MariaDB [employeesystem]> select count(projNo) from EmpProject where empNo='E1';
 1 row in set (0.001 sec)
 
 MariaDB [employeesystem]> select empNo, totalHours from EmpProject group by empNo;
-Empty set (0.001 sec)
++-------+------------+
+| empNo | totalHours |
++-------+------------+
+|   101 |         29 |
+|   207 |         24 |
+|   450 |          9 |
+|   782 |          6 |
+|  1005 |          8 |
+|  1500 |         10 |
+|  2022 |          7 |
+|  3098 |          8 |
+|  4011 |          9 |
+|  5100 |          5 |
+|  6123 |         13 |
+|  7555 |          8 |
+|  8800 |         15 |
+|  9301 |         11 |
+| 15001 |         16 |
++-------+------------+
+15 rows in set (0.001 sec)
