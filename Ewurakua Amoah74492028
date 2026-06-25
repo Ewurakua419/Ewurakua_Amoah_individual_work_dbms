@@ -235,3 +235,6 @@ MariaDB [employeesystem]> select empNo, totalHours from EmpProject group by empN
 | 15001 |         16 |
 +-------+------------+
 15 rows in set (0.001 sec)
+
+//qn 7.28
+As a materialized view i would use a table to store the information and periodically add to it the n ew values stored on the base table. If the view did not have a Distinct constraint, apart from that it meets every other condition needed for it to be maintained without having access to the underlying base table. Each roww innput must also be able to be traced back to the base table
